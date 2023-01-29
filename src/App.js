@@ -1,10 +1,11 @@
-import { calc, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import './App.css';
 import Navbar from './component/Navbar';
 import Sidebar from './component/Sidebar';
 import AllRoutes from './routes/AllRoutes';
 
 function App() {
+
   return (
     <div className="App">
       <Navbar/>

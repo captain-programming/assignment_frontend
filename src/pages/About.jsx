@@ -1,19 +1,18 @@
-import { Box, Container, Flex, Heading, Img, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Img, Link, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Textarea } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { FaPen } from 'react-icons/fa';
 import { MdVerified } from 'react-icons/md';
-
-const contactsDetails = [
-  {
-    
-  }
-]
+import TermsCondition from '../component/TermsCondition';
+import PrivacyPolicy from '../component/PrivacyPolicy';
+import { TiTick } from 'react-icons/ti';
+import Info from '../component/InfoTab/Info';
 
 const About = () => {
   const [description, setDiscription] = useState("Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic in quas doloribus quia eveniet veritatis quae esse.");
+  const [edit, setEdit] = useState(false);
 
   const changeDiscription = () =>{
-
+    setEdit(!edit)
   }
 
   return (
@@ -28,12 +27,22 @@ const About = () => {
           </Box>
           <Flex alignItems={'center'} gap={2} ml={4}>
             <MdVerified fontSize={"25px"} color="rgb(205,205,204)"/>
-            <Text textDecoration={"underline"} color="rgb(81,148,231)">Verify Company</Text>
+            <Link href='#' isExternal textDecoration={"underline"} color="rgb(81,148,231)">Verify Company</Link>
           </Flex>
       </Flex>
-      <Flex m={"20px 0px"}>
-        <Text color={'rgb(98,99,98)'} fontSize='17px' width={"650px"}>{description}</Text>
-        <FaPen color='rgb(196,62,62)' cursor={'pointer'}/>
+      <Flex m={"20px 0px"} gap={2}>
+        {
+          edit ? 
+          <Textarea value={description} onChange={(e)=> setDiscription(e.target.value)} minH={"100px"} width="70%"/> 
+          :
+          <Text color={'rgb(98,99,98)'} fontSize='17px' width={"650px"}>{description}</Text>
+        }
+        {
+          edit ? 
+          <TiTick fontSize={"25px"} color='green' cursor={'pointer'} onClick={changeDiscription}/>
+          :
+          <FaPen color='rgb(196,62,62)' cursor={'pointer'} onClick = {changeDiscription}/>
+        }
       </Flex>
 
       <Box>
@@ -46,26 +55,11 @@ const About = () => {
             <Tab _selected={{fontWeight: "500", borderBottomColor: "rgb(164,16,18)", color: "black"}}>Terms & Conditions</Tab>
           </TabList>
           <TabPanels>
-            <TabPanel>
-              <Box>
-                <Flex>
-                  <Flex>
-                    <Heading size={'md'}>Contact</Heading>
-                  </Flex>
-                  <FaPen />
-                </Flex>
-                <Flex>
-                  <Flex>
-                    <Heading size={'md'}>{}</Heading>
-                  </Flex>
-                  <FaPen />
-                </Flex>
-                
-              </Box>
-            </TabPanel>
-            <TabPanel>
-              <p>two!</p>
-            </TabPanel>
+            <TabPanel> <Info /> </TabPanel>
+            <TabPanel> </TabPanel>
+            <TabPanel> </TabPanel>
+            <TabPanel> <PrivacyPolicy /> </TabPanel>
+            <TabPanel> <TermsCondition /> </TabPanel>
           </TabPanels>
         </Tabs>
       </Box>
